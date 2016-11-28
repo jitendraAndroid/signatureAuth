@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal">
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_header"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape_alert_dialog"
+        android:gravity="center_horizontal"
+        android:paddingTop="10dp">
+
+
+        <TextView
+            android:id="@+id/tv_alert_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="15dp"
+            android:textColor="@color/dialog_text_transfer_value"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_alert_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_alert_header"
+            android:gravity="center"
+            android:padding="15dp"
+            android:textColor="@color/alert_title_end_bg"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/resultImage"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_alert_msg" />
+
+        <LinearLayout
+            android:id="@+id/ll_footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/resultImage"
+            android:gravity="right"
+            android:orientation="horizontal"
+            android:paddingBottom="15dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <Button
+                android:id="@+id/btn_negative"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:text="@string/cancel"
+                android:textColor="@color/dialog_transfer_button_background"
+                android:visibility="invisible" />
+
+            <Button
+                android:id="@+id/btn_positive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:text="@string/ok"
+                android:textColor="@color/dialog_transfer_button_background" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/success"
+        android:visibility="invisible" />
+
+</RelativeLayout>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#57b553</color>
+    <color name="colorPrimaryDark">#577753</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="translucent_dialog_backgroud">#C0000000</color>
+
+
+    <!-- Color applied to the background of the help dialog -->
+    <color name="dialog_background_transform">#dedede</color>
+    <color name="dialog_text_transfer_value">#5f5f5f</color>
+    <color name="alert_title_end_bg">#545454</color>
+
+    <color name="default_text_color">#222222</color>
+    <color name="secondary_text_color">#585858</color>
+    <color name="ternary_text_color">#666666</color>
+    <color name="disabled_text_color">#828282</color>
+    <color name="off_white_text_color">#EFDFE2</color>
+    <color name="background_color">#f3f3f3</color>
+
+    <!-- new color for new design -->
+    <color name="txt_form_label">#3f3f3f</color>
+    <color name="rb_label">#0e0e0e</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="white_transparent_80">#BFffffff</color>
+    <color name="black_transparent_95">#0D000000</color>
+    <color name="black">@android:color/black</color>
+    <color name="black_80">#33000000</color>
+
+    <color name="default_screen_bg">#472445</color>
+    <color name="out_line_edittext_view">#8d1a92</color>
+    <color name="out_line_edittext_view_transparent">#7d843987</color>
+    <color name="hint_color">#cacaca</color>
+    <color name="label_color">#AAAAAA</color>
+    <color name="layout_background">#efefef</color>
+    <color name="pink">#eb1f91</color>
+    <color name="transparent">#00000000</color>
+    <color name="splash_bg">#472445</color>
+    <color name="purple_dark">#604361</color>
+
+    <!-- Home Module -->
+    <color name="background">#f3f3f3</color>
+    <color name="header_background">#d1d1d1</color>
+    <color name="amount">#ffde00</color>
+    <color name="app_title_sub">#604361</color>
+
+    <!-- Home List -->
+    <!--Amit -->
+    <color name="color_1_dark">#260c25</color>
+    <color name="color_1_light">#472445</color>
+    <color name="color_2_dark">#380c26</color>
+    <color name="color_2_light">#693754</color>
+    <color name="color_3_dark">#732431</color>
+    <color name="color_3_light">#b0606d</color>
+    <color name="color_4_dark">#9e3d2f</color>
+    <color name="color_4_light">#de8275</color>
+    <color name="color_5_dark">#cf5727</color>
+    <color name="color_5_light">#ffab89</color>
+    <color name="color_6_dark">#c4331b</color>
+    <color name="color_6_light">#ec6b56</color>
+    <color name="color_7_dark">#d98d0e</color>
+    <color name="color_7_light">#ffc056</color>
+    <color name="color_8_dark">#17987c</color>
+    <color name="color_8_light">#44b49c</color>
+    <color name="color_9_dark">#6f2588</color>
+    <color name="color_9_light">#8f57a2</color>
+    <color name="color_10_dark">#2b7f18</color>
+    <color name="color_10_light">#4da837</color>
+
+    <color name="group_differentiator">#B3ffffff</color>
+    <color name="menu_txt">#CC000000</color>
+
+    <!-- custome alert -->
+    <color name="dialog_transfer_button_background">#0096bc</color>
+
+    <!-- offer holder colors-->
+    <color name="product1">#7f2f89</color>
+    <color name="product2">#ea1e90</color>
+    <color name="product3">#f93d88</color>
+    <color name="product4">#f59054</color>
+    <color name="product5">#48a1d9</color>
+    <color name="product6">#7fc0ea</color>
+    <color name="product7">#57b553</color>
+    <color name="product8">#bfd34d</color>
+    <color name="product_bg">#f4f4f4</color>
+
+    <color name="order_preview_label_color">#797979</color>
+    <color name="order_preview_value_color">#2d2d2d</color>
+
+
+</resources>
+
