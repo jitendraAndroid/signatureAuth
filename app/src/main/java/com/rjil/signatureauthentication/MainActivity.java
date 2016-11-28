@@ -139,6 +139,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    /**
+     * Compare two images for authentication
+     * applying MAT to GrayScale,
+     * Converting the MAT to float values,
+     * normalizing the pixel array
+     * and then comparing if compare value lies between 0 to 10000 calling Verifytask for further authentication
+     */
     private void authenticateSignature() {
         if (bmpimg1 != null && bmpimg2 != null) {
             bmpimg1 = Bitmap.createScaledBitmap(bmpimg1, 100, 100, true);
@@ -173,8 +180,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             double compare = Imgproc.compareHist(hist1, hist2, Imgproc.CV_COMP_CHISQR);
             Log.d("ImageComparator", "compare: " + compare);
             if (compare > 0 && compare < 10000) {
-                //Toast.makeText(MainActivity.this, "Images may be possible duplicates, verifying", Toast.LENGTH_SHORT).show();
-                new asyncTask(MainActivity.this).execute();
+
+                new VerifyTask(MainActivity.this).execute();
             } else if (compare == 0)
                 Toast.makeText(MainActivity.this, "Images are exact duplicates", Toast.LENGTH_SHORT).show();
             else
@@ -199,13 +206,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         imageStream = getContentResolver().openInputStream(
                                 selectedImage);
                     } catch (FileNotFoundException e) {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
-                    //yourSelectedImage = decodeSampledBitmapFromStream(imageStream, imgCaptureModel.getHeight(), imgCaptureModel.getWidth());
                     BitmapFactory.Options options = new BitmapFactory.Options();
-                    options.inSampleSize = 4;//calculateInSampleSize(options, imgCaptureModel.getWidth(), imgCaptureModel.getHeight());
-
+                    //TODO:Currently set the sampleSize as 4, need to be calculated  based on the size of the image need to be showed in the imageView.
+                    options.inSampleSize = 4;
                     yourSelectedImage = BitmapFactory.decodeStream(imageStream, null, options);
 
                     if (imgNo == 1) {
@@ -224,31 +229,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public static int calculateInSampleSize(
-            BitmapFactory.Options options, int reqWidth, int reqHeight) {
-        // Raw height and width of image
-        final int height = options.outHeight;
-        final int width = options.outWidth;
-        int inSampleSize = 1;
-
-        if (height > reqHeight || width > reqWidth) {
-
-            final int halfHeight = height / 2;
-            final int halfWidth = width / 2;
-
-            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
-            // height and width larger than the requested height and width.
-            while ((halfHeight / inSampleSize) >= reqHeight
-                    && (halfWidth / inSampleSize) >= reqWidth) {
-                inSampleSize *= 2;
-            }
-        }
-
-        return inSampleSize;
-    }
-
-
-    public static class asyncTask extends AsyncTask<Void, Void, Void> implements OnCustomDialogClickListener {
+    /**
+     * Applying BRISK descriptor extractor for verifying the matches and also drawing the matches for good visible results.
+     * */
+    public static class VerifyTask extends AsyncTask<Void, Void, Void> implements OnCustomDialogClickListener {
         private static Mat img1, img2, descriptors, dupDescriptors;
         private static FeatureDetector detector;
         private static DescriptorExtractor DescExtractor;
@@ -256,15 +240,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         private static MatOfKeyPoint keypoints, dupKeypoints;
         private static MatOfDMatch matches, matches_final_mat;
         private static ProgressDialog pd;
-        private static boolean isDuplicate = false;
         private MainActivity asyncTaskContext = null;
         private static Scalar RED = new Scalar(255, 0, 0);
         private static Scalar GREEN = new Scalar(0, 255, 0);
         private int min_dist = 100;
-        private int min_matches = 20;
+        private int min_matches = 20;//TODO: Currently hard coded need to aacept value from the end user
         String message;
 
-        public asyncTask(MainActivity context) {
+        public VerifyTask(MainActivity context) {
             asyncTaskContext = context;
         }
 
@@ -280,7 +263,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         protected Void doInBackground(Void... arg0) {
-            // TODO Auto-generated method stub
             compare();
             return null;
         }
@@ -296,9 +278,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Bitmap.Config.ARGB_8888);
                 Imgproc.cvtColor(img3, img3, Imgproc.COLOR_BGR2RGB);
                 Utils.matToBitmap(img3, bmp);
-                Bitmap resize  = Bitmap.createScaledBitmap(bmp,(int)(bmp.getWidth()*2), (int)(bmp.getHeight()*2), true);
+                Bitmap resize = Bitmap.createScaledBitmap(bmp, (int) (bmp.getWidth() * 2), (int) (bmp.getHeight() * 2), true);
                 List<DMatch> finalMatchesList = matches_final_mat.toList();
-                final int matchesFound = finalMatchesList.size();
                 if (finalMatchesList.size() >= min_matches)// dev discretion for
                 // number of matches to
                 // be found for an image
@@ -309,7 +290,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     message = finalMatchesList.size() + " matches were found, Signature can be authenticated";
                     DialogUtils.showDialog(asyncTaskContext, "Results", message, "", "", this, false, resize);
                 } else {
-                    message = "Signature not authenticated (matches : "+finalMatchesList.size()+")";
+                    message = "Signature not authenticated (matches : " + finalMatchesList.size() + ")";
                     DialogUtils.showDialog(asyncTaskContext, "Results", message, "", "", this, true, resize);
                 }
                 pd.dismiss();

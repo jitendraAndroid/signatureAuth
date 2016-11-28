@@ -17,7 +17,6 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,8 +26,6 @@ public class CustomAlertDialog extends DialogFragment implements
     public static final String MESSAGE = "message";
     public static final String TITLE = "title";
     public static final String IS_ALERT = "is_alert";
-    public static final String IS_CHECK_BOX = "is_check_box";
-    public static final String IS_CHECK_BOX_MSG = "is_check_box_msg";
     public static final String IS_RESULT_IMAGE = "is_image";
     private CharSequence mMsg;
     private CharSequence mTitle;
@@ -36,18 +33,13 @@ public class CustomAlertDialog extends DialogFragment implements
     private CharSequence mPositiveBtnTxt;
     private boolean isAlert = true;
     private ImageView ivIcon;
-    private View mLlCheckBox;
-    private boolean isCheckBoxVisible;
-    private String mCheckBoxMsg;
     private ImageView mImageView;
-    private CheckBox mChkBox;
     private View mView;
     private Bitmap mResultBitmap;
 
     public enum Type {
         BUTTON_POSITIVE,
-        BUTTON_NEGATIVE,
-        BUTTON_POSITIVE_CHECKED
+        BUTTON_NEGATIVE
     }
 
     private TextView mDialogMsg;
@@ -71,8 +63,6 @@ public class CustomAlertDialog extends DialogFragment implements
             mMsg = arguments.getString(MESSAGE);
             mTitle = arguments.getString(TITLE);
             isAlert = arguments.getBoolean(IS_ALERT);
-            isCheckBoxVisible = arguments.getBoolean(IS_CHECK_BOX);
-            mCheckBoxMsg = arguments.getString(IS_CHECK_BOX_MSG);
             mResultBitmap = arguments.getParcelable(IS_RESULT_IMAGE);
         }
 
@@ -194,19 +184,14 @@ public class CustomAlertDialog extends DialogFragment implements
 
     private void initView() {
         mDialogMsg = (TextView) mView.findViewById(R.id.tv_alert_msg);
-        mImageView = (ImageView)mView.findViewById(R.id.resultImage);
-/*        mChkBox = (CheckBox) mView.findViewById(R.id.chkbox_alert);
-        mLlCheckBox = mView.findViewById(R.id.ll_checkbox);*/
+        mImageView = (ImageView) mView.findViewById(R.id.resultImage);
         mDialogTitle = (TextView) mView
                 .findViewById(R.id.tv_alert_header);
         mBtnPositive = (Button) mView.findViewById(R.id.btn_positive);
         mBtnNegative = (Button) mView.findViewById(R.id.btn_negative);
         ivIcon = (ImageView) mView.findViewById(R.id.iv_header);
 
-        if (isCheckBoxVisible) {
-            mLlCheckBox.setVisibility(View.VISIBLE);
-            mChkBox.setText(mCheckBoxMsg);
-        }
+
     }
 
     @Override
@@ -218,11 +203,9 @@ public class CustomAlertDialog extends DialogFragment implements
     public void onClick(View v) {
         if (v.getId() == R.id.btn_positive) {
             if (btnPositiveListener != null) {
-                if (isCheckBoxVisible && mChkBox.isChecked()) {
-                    btnPositiveListener.onCustomDialogClick(Type.BUTTON_POSITIVE_CHECKED);
-                } else {
-                    btnPositiveListener.onCustomDialogClick(Type.BUTTON_POSITIVE);
-                }
+
+                btnPositiveListener.onCustomDialogClick(Type.BUTTON_POSITIVE);
+
             }
             dismiss();
         } else {
